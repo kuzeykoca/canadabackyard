@@ -1,0 +1,12 @@
+features:
+   comment_user_picture: true
+   comment_user_verification: true
+   favicon: true
+   logo: true
+   name: true
+   node_user_picture: true
+   slogan: true
+facebook_url: 'https://www.facebook.com/CanadaBackyard'
+twitter_url: 'https://twitter.com/CanadaBackyard'
+linkedin_url: 'http://www.linkedin.com/company/CanadaBackyard'
+instagram_url: 'https://www.instagram.com/'

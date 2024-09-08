@@ -1,0 +1,15 @@
+.flexslider {
+    img {
+        height: 27rem !important;
+        object-fit: cover;
+    }
+}
+
+.container {
+    padding: 0;
+    margin: 0 auto;
+}
+
+.container.flexslider {
+    min-width: 100%;
+}

@@ -1,0 +1,159 @@
+<div class="header">
+    <div class="container">
+        <div class="row">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                {% if page.header %}
+                    {{ page.header }}
+                {% endif %}
+            </div>
+
+            <div class="primary-menu-wrap">
+                {{ page.primary_menu }}
+                {{ page.search }}
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!--End: Widget -->
+
+
+<!--Start: Highlighted -->
+{% if page.highlighted %}
+    <div class="highlighted">
+        <div class="container">
+            {{ page.highlighted }}
+        </div>
+    </div>
+{% endif %}
+<!--End: Widget -->
+
+
+<div class="main-content">
+    <div class="container">
+        <div class="">
+
+            {% if not is_front %}
+                <div class="row">
+                    <div class="col-md-12">{{ page.breadcrumb }}</div>
+                </div>
+            {% endif %}
+
+            <div class="row layout">
+                {% if page.sidebar_first %}
+                    <div class={{ sidebarfirst }}>
+                        <div class="sidebar">
+                            {{ page.sidebar_first }}
+                        </div>
+                    </div>
+                {% endif %}
+                {% if page.content %}
+                <div class={{ contentlayout }}>
+                    {{ page.content|without('slider') }}
+                </div>
+            </div>
+            {% endif %}
+            {% if page.sidebar_second %}
+                <div class={{ sidebarsecond }}>
+                    <div class="sidebar">
+                        {{ page.sidebar_second }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+<!--End: Widget -->
+
+
+<!-- Start: Bottom widgets -->
+{% if page.bottom_first or page.bottom_second or page.bottom_third or page.bottom_forth %}
+    <div class="bottom-widget" id="bottom-widget">
+        <div class="container">
+
+            {% if page.bottom_title %}
+                <div class="custom-block-title">
+                    {{ page.bottom_title }}
+                </div>
+            {% endif %}
+
+            <div class="row">
+                {% if page.bottom_first %}
+                    <div class= {{ bottom_class }}>
+                        {{ page.bottom_first }}
+                    </div>
+                {% endif %}
+                {% if page.bottom_second %}
+                    <div class= {{ bottom_class }}>
+                        {{ page.bottom_second }}
+                    </div>
+                {% endif %}
+                {% if page.bottom_third %}
+                    <div class= {{ bottom_class }}>
+                        {{ page.bottom_third }}
+                    </div>
+                {% endif %}
+                {% if page.bottom_forth %}
+                    <div class= {{ bottom_class }}>
+                        {{ page.bottom_forth }}
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+{% endif %}
+<!--End: Widget -->
+
+
+<!-- Start: Footer widgets -->
+{% if page.footer_first or page.footer_second or page.footer_third %}
+    <div class="footer" id="footer">
+        <div class="container">
+
+            {% if page.footer_title %}
+                <div class="custom-block-title">
+                    {{ page.footer_title }}
+                </div>
+            {% endif %}
+
+            <div class="row">
+                {% if page.footer_first %}
+                    <div class="col-sm">
+                        {{ page.footer_first }}
+                    </div>
+                {% endif %}
+                {% if page.footer_second %}
+                    <div class="col-sm">
+                        {{ page.footer_second }}
+                    </div>
+                {% endif %}
+                {% if page.footer_third %}
+                    <div class="col-sm">
+                        {{ page.footer_third }}
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+{% endif %}
+<!--End: Widget -->
+
+
+<!-- Start: Copyright -->
+<div class="copyright">
+    <div class="container">
+        <span>Copyright © {{ "now"|date("Y") }}. All rights reserved.</span>
+        <span class="credit-link">Designed By <a href="https://www.CanadaBackyard.com" target="_blank">CanadaBackyard</a></span>
+    </div>
+</div>
+<!--End: Widget -->
+
+

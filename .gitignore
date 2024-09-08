@@ -1,0 +1,24 @@
+sites/*/services*.yml
+
+# Ignore paths that contain user-generated content.
+sites/*/files
+sites/*/private
+
+# Ignore multi-site test environment.
+sites/simpletest
+
+# If you prefer to store your .gitignore file in the sites/ folder, comment
+# or delete the previous settings and uncomment the following ones, instead.
+
+# Ignore configuration files that may contain sensitive information.
+# */settings*.php
+
+# Ignore paths that contain user-generated content.
+# */files
+# */private
+
+# Ignore multi-site test environment.
+# simpletest
+sites/default/settings.local.php
+sites/default/files
+.editorconfig

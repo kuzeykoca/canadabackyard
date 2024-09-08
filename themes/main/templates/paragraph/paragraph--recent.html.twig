@@ -1,0 +1,6 @@
+<div class="recent-articles masonry">
+    {% for article in recentArticles %}
+        {% include '@main/templates/components/mini-article.html.twig' with {'article': article} %}
+    {% endfor %}
+</div>
+<button id="load-more" class="load-more" data-offset="{{ offset }}" data-term-id="{{ termID }}">Load More</button>

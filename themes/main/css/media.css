@@ -1,0 +1,138 @@
+@media (min-width: 576px) {
+    .container {
+        max-width: 570px;
+    }
+}
+
+@media (min-width: 767px) {
+    .container {
+        max-width: 1140px;
+    }
+
+    .navbar-toggle {
+        display: none;
+    }
+
+    .user-logged-in .main-header {
+        position: relative;
+    }
+
+    .flexslider {
+        margin-top: 20px;
+    }
+
+    .flexslider .slider-caption {
+        display: block;
+        top: 0%;
+        bottom: 0%;
+        left: 0%;
+        width: 40%;
+        font-size: 1.2em;
+        padding: 20px;
+        background: rgba(230, 197, 92, 0.82);
+    }
+
+    .flexslider .slider-title {
+        font-size: 2em;
+    }
+
+    .flexslider .flex-direction-nav {
+        display: block;
+        margin-top: -24px;
+    }
+
+    .navbar-toggle-close {
+        display: none;
+    }
+
+    .carousel-caption {
+        background-color: #fff;
+        background: rgba(0, 0, 0, 0.84);
+        color: #ddd;
+        text-shadow: none;
+        padding: 20px;
+        top: 20%;
+        left: 10%;
+        bottom: auto;
+        width: 30%;
+        text-align: left;
+    }
+
+    .comment-wrap .author-details {
+        width: 10%;
+    }
+
+    .comment-wrap .author-comments {
+        width: 90%;
+    }
+
+    .social-media {
+        margin: 0;
+        padding: 10px 0;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .path-taxonomy .main-content .views-element-container .views-row,
+    .path-frontpage .main-content .views-element-container .views-row {
+        float: left;
+        width: 24%;
+    }
+
+    /*.region-search {*/
+    /*    width: ;*/
+    /*}*/
+}
+
+/*region-primary-menu expand navbar-toggle*/
+@media (max-width: 767px) {
+    .primary-menu-wrap {
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .region-primary-menu {
+        margin-left: 0;
+    }
+
+    .region-primary-menu {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        border-radius: 0;
+        position: fixed;
+        top: 0;
+        left: -100%;
+        right: 100%;
+        bottom: 0;
+        z-index: 99;
+        transition: all .5s;
+        align-items: start;
+
+        a, .navbar-toggle-close  {
+            color: white !important;
+        }
+    }
+
+    .region-primary-menu.expand {
+        left: 0;
+        right: 10%;
+    }
+
+    .recent-articles {
+        .box {
+            width: 100%;
+        }
+    }
+
+    .slider-caption {
+        background: rgba(230, 197, 92, 0.62) !important;
+    }
+
+    .container {
+        width: calc(100% - 2rem);
+    }
+
+    .region-search {
+        display: none;
+    }
+}

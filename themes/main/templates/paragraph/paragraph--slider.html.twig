@@ -1,0 +1,27 @@
+{% set block = paragraph.field_slider.entity %}
+{% set slider = block.field_slide %}
+
+<div class="container flexslider">
+        <ul class="slides">
+            {% for slide in slider %}
+                {% set data = slide.entity %}
+                <li style="list-style: none">
+                    {% set background_image = data.field_background_image.entity.field_media_image.entity.uri.value %}
+                    <img src="{{ file_url(background_image) }}" alt="Slider Banner"/>
+                    <div class="slider-caption">
+                        <h2 class="slider-title">
+                            {{ data.field_title.value }}
+                        </h2>
+                        <div class="clearfix">
+                            <p class="slider-description">
+                                {{ data.field_description.value|raw }}
+                            </p>
+                        </div>
+                        <div href="" class="more-link">
+                            {{ link(data.field_link.title, data.field_link.uri) }}
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+</div>

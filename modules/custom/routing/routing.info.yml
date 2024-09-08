@@ -1,0 +1,5 @@
+name: 'Routing Module'
+type: module
+description: 'Provides custom routes for /recipes and /articles.'
+core_version_requirement: ^8 || ^9 || ^10
+package: Custom

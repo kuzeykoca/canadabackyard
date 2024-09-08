@@ -1,0 +1,13 @@
+<?php
+
+function routing_theme(): array
+{
+    $theme_path = \Drupal::service('extension.list.theme')->getPath('main');
+    return [
+        'articles_theme' => [
+            'variables' => ['articles' => NULL, 'title' => NULL, 'pager' => null],
+            'template' => 'paragraph--recent',
+            'path' => $theme_path . '/paragraph',
+        ],
+    ];
+}

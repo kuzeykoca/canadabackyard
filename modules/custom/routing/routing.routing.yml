@@ -1,0 +1,7 @@
+routing.articles:
+    path: '/load-more-articles/{term_id}/{offset}'
+    defaults:
+        _controller: '\Drupal\routing\RoutingController::loadMoreArticles'
+        _title: 'Articles'
+    requirements:
+        _permission: 'access content'

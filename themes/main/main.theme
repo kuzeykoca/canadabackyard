@@ -1,0 +1,185 @@
+<?php
+
+use Drupal\node\Entity\Node;
+
+
+const ARTICLES_LENGTH = 9;
+
+function main_preprocess_page(&$variables): void
+{
+    // Add responsive class for top widget.
+    if (!empty($variables['page']['topwidget_first']) && !empty($variables['page']['topwidget_second']) && !empty($variables['page']['topwidget_third'])) {
+        $variables['topwidget_class'] = 'col-md-4';
+    } elseif ((!empty($variables['page']['topwidget_first']) && !empty($variables['page']['topwidget_second'])) or (!empty($variables['page']['topwidget_first']) && !empty($variables['page']['topwidget_third'])) or (!empty($variables['page']['topwidget_third']) && !empty($variables['page']['topwidget_second']))) {
+        $variables['topwidget_class'] = 'col-md-6';
+    } else {
+        $variables['topwidget_class'] = 'col-md-12';
+    }
+
+    // Add responsive class for bottom widget.
+    if (!empty($variables['page']['bottom_first']) && !empty($variables['page']['bottom_second']) && !empty($variables['page']['bottom_third']) && !empty($variables['page']['bottom_forth'])) {
+        $variables['bottom_class'] = 'col-md-3';
+    } else if (!empty($variables['page']['bottom_first']) && !empty($variables['page']['bottom_second']) && !empty($variables['page']['bottom_third'])) {
+        $variables['bottom_class'] = 'col-md-4';
+    } else if ((!empty($variables['page']['bottom_first']) && !empty($variables['page']['bottom_second'])) or (!empty($variables['page']['bottom_first']) && !empty($variables['page']['bottom_third'])) or (!empty($variables['page']['bottom_third']) && !empty($variables['page']['bottom_second']))) {
+        $variables['bottom_class'] = 'col-md-6';
+    } else {
+        $variables['bottom_class'] = 'col-md-12';
+    }
+
+
+    // Add responsive class for Services widget.
+    if (!empty($variables['page']['services_first']) && !empty($variables['page']['services_second']) && !empty($variables['page']['services_third']) && !empty($variables['page']['services_forth'])) {
+        $variables['services_class'] = 'col-md-3';
+    } else if (!empty($variables['page']['services_first']) && !empty($variables['page']['services_second']) && !empty($variables['page']['services_third'])) {
+        $variables['services_class'] = 'col-md-4';
+    } else if ((!empty($variables['page']['services_first']) && !empty($variables['page']['services_second'])) or (!empty($variables['page']['services_first']) && !empty($variables['page']['services_third'])) or (!empty($variables['page']['services_third']) && !empty($variables['page']['services_second']))) {
+        $variables['services_class'] = 'col-md-6';
+    } else {
+        $variables['services_class'] = 'col-md-12';
+    }
+
+    // Add responsive class for Updates widget.
+    if (!empty($variables['page']['updates_first']) && !empty($variables['page']['updates_second']) && !empty($variables['page']['updates_third']) && !empty($variables['page']['updates_forth'])) {
+        $variables['updates_class'] = 'col-md-3';
+    } else if (!empty($variables['page']['updates_first']) && !empty($variables['page']['updates_second']) && !empty($variables['page']['updates_third'])) {
+        $variables['updates_class'] = 'col-md-4';
+    } else if ((!empty($variables['page']['updates_first']) && !empty($variables['page']['updates_second'])) or (!empty($variables['page']['updates_first']) && !empty($variables['page']['updates_third'])) or (!empty($variables['page']['updates_third']) && !empty($variables['page']['updates_second']))) {
+        $variables['updates_class'] = 'col-md-6';
+    } else {
+        $variables['updates_class'] = 'col-md-12';
+    }
+
+    // Add responsive class for features.
+    if (!empty($variables['page']['features_first']) && !empty($variables['page']['features_second']) && !empty($variables['page']['features_third'])) {
+        $variables['features_class'] = 'col-md-4';
+        $variables['features_first_class'] = 'col-md-4';
+    } elseif ((!empty($variables['page']['features_first']) && !empty($variables['page']['features_second'])) or (!empty($variables['page']['features_first']) && !empty($variables['page']['features_third'])) or (!empty($variables['page']['features_third']) && !empty($variables['page']['features_second']))) {
+        $variables['features_class'] = 'col-md-6';
+        $variables['features_first_class'] = 'col-md-6';
+    } else {
+        $variables['features_class'] = 'col-md-12';
+    }
+
+
+    // Add responsive class for footer.
+    if (!empty($variables['page']['footer_first']) && !empty($variables['page']['footer_second']) && !empty($variables['page']['footer_third'])) {
+        $variables['footer_class'] = 'col-md-4';
+    } elseif ((!empty($variables['page']['footer_first']) && !empty($variables['page']['footer_second'])) or (!empty($variables['page']['footer_first']) && !empty($variables['page']['footer_third'])) or (!empty($variables['page']['footer_third']) && !empty($variables['page']['footer_second']))) {
+        $variables['footer_class'] = 'col-md-6';
+    } else {
+        $variables['footer_class'] = 'col-md-12';
+    }
+
+
+    // Add information about the number of sidebars.
+    if (!empty($variables['page']['sidebar_first']) && !empty($variables['page']['sidebar_second'])) {
+        $variables['contentlayout'] = 'col-md-6';
+        $variables['sidebarfirst'] = 'col-md-3';
+        $variables['sidebarsecond'] = 'col-md-3';
+    } elseif (!empty($variables['page']['sidebar_first'])) {
+        $variables['contentlayout'] = 'col-md-9 ';
+        $variables['sidebarfirst'] = 'col-md-3';
+    } elseif (!empty($variables['page']['sidebar_second'])) {
+        $variables['contentlayout'] = 'col-md-9';
+        $variables['sidebarsecond'] = 'col-md-3';
+    } else {
+        $variables['contentlayout'] = 'col-md-12';
+    }
+
+    //To get the current URL
+    $current_url = \Drupal::request()->getRequestUri();
+    $current_path = parse_url($current_url);
+    $variables['current_path'] = $current_path['path'] ?? FALSE;
+}
+
+/**
+ * Implements hook_preprocess_menu().
+ */
+function main_preprocess_menu(&$variables, $hook): void
+{
+    if ($hook == 'menu__main') { // We're doing that for main menu.
+        // Get the current path.
+        $current_path = \Drupal::request()->getRequestUri();
+        $items = $variables['items'];
+        foreach ($items as $key => $item) {
+            // If path is current_path, set active to li.
+            if ($item['url']->toString() == $current_path) {
+                // Add active link.
+                $variables['items'][$key]['attributes']['class'] = 'active';
+            }
+        }
+    }
+}
+
+function main_preprocess_paragraph__recent(&$variables): void
+{
+    $category = $variables['content']['field_category']['#items']->entity;
+    $termID = $category->get('tid')->value;
+    $variables['recentArticles'] = getRecentArticles($termID);
+    $variables['termID'] = $termID;
+    $variables['offset'] = ARTICLES_LENGTH;
+}
+
+function main_preprocess_taxonomy_term(array &$variables): void
+{
+    $term = $variables['term'];
+    if ($term->bundle() === 'category') {
+        $variables['custom_term_name'] = $term->getName();
+        $variables['recentArticles'] = getRecentArticles($term->tid->value);
+        $variables['termID'] = $term->tid->value;
+        $variables['offset'] = ARTICLES_LENGTH;
+    }
+}
+
+function getRecentArticles($term): array
+{
+    $query = \Drupal::entityQuery('node')
+        ->condition('type', 'article')
+        ->condition('status', 1)
+        ->condition('field_category.target_id', $term)
+        ->sort('created', 'DESC')
+        ->range(0, ARTICLES_LENGTH)
+        ->accessCheck(FALSE);
+
+    $article_ids = $query->execute();
+
+    if (!empty($article_ids)) {
+        $articles = Node::loadMultiple($article_ids);
+        return mapArticles($articles);
+    }
+
+    return [];
+}
+
+function mapArticles(array $articles): array
+{
+    $mapped_articles = [];
+
+    foreach ($articles as $article) {
+        $mapped_articles[] = [
+            'title' => $article->label(),
+            'url' => \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $article->id()),
+            'image' => _getFieldImage($article->get('field_image')->entity),
+            'body' => _getBody($article->get('body')->value),
+        ];
+    }
+
+    return $mapped_articles;
+}
+
+function _getFieldImage($media): string
+{
+    if ($media && $media->hasField('field_media_image')) {
+        $image = $media->get('field_media_image')->entity;
+        if ($image && $image->hasField('uri')) {
+            return \Drupal::service('file_url_generator')->generateAbsoluteString($image->get('uri')->value);
+        }
+    }
+    return '';
+}
+
+function _getBody(string $body): string
+{
+    return mb_strimwidth($body, 0, 200, '...');
+}
