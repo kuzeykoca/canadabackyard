@@ -112,6 +112,12 @@ function main_preprocess_menu(&$variables, $hook): void
     }
 }
 
+function main_preprocess_node__article(&$variables): void
+{
+    $fieldImage = $variables['content']['field_image'][0]['#media'];
+    $variables['image'] = _getFieldImage($fieldImage);
+}
+
 function main_preprocess_paragraph__recent(&$variables): void
 {
     $category = $variables['content']['field_category']['#items']->entity;
@@ -183,3 +189,5 @@ function _getBody(string $body): string
 {
     return mb_strimwidth($body, 0, 200, '...');
 }
+
+
