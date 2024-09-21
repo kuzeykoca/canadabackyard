@@ -21,7 +21,7 @@ class RoutingController extends ControllerBase
             ->condition('status', 1)
             ->condition('field_category.target_id', $term_id)
             ->sort('created', 'DESC')
-            ->range($offset, 2)
+            ->range($offset, 9)
             ->accessCheck(FALSE);
 
         $article_ids = $query->execute();

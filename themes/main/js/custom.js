@@ -85,7 +85,7 @@ document.getElementById('load-more').addEventListener('click', function () {
                 setTimeout(()=>{
                     msnry.appended(articleElements);
                     msnry.layout();
-                }, 10)
+                }, 50)
 
             } else {
                 button.style.display = 'none';
