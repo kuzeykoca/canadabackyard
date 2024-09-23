@@ -9,6 +9,11 @@
         {{ content.body }}
     </div>
 
+    <hr>
+    <h2>
+        Recent articles from {{ category }}
+    </h2>
+
     <div class="recent-articles space">
         {% for article in recentArticles %}
             {% include '@main/templates/components/mini-article.html.twig' with {'article': article} %}

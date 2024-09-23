@@ -117,6 +117,7 @@ function main_preprocess_node__article(&$variables): void
     $fieldImage = $variables['content']['field_image'][0]['#media'];
     $variables['image'] = _getFieldImage($fieldImage);
     $categoryId = $variables['content']['field_category'][0]['#entity']->tid->value;
+    $variables['category'] = $variables['content']['field_category'][0]['#entity']->name->value;
     $variables['recentArticles'] = getRecentArticles($categoryId, 3);
 }
 
