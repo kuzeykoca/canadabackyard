@@ -1,0 +1,31 @@
+<?php
+
+
+function visitor_counter_schema(): array
+{
+	return [
+		'visitor_counter' => [
+			'description' => 'Stores daily unique visitor sessions.',
+			'fields' => [
+				'id' => [
+					'description' => 'Primary Key: Unique ID for each record.',
+					'type' => 'serial',
+					'not null' => TRUE,
+				],
+				'session_id' => [
+					'description' => 'The session ID of the visitor.',
+					'type' => 'varchar',
+					'length' => 128,
+					'not null' => TRUE,
+				],
+				'visit_date' => [
+					'description' => 'The date of the visit (YYYY-MM-DD).',
+					'type' => 'varchar',
+					'length' => 10,
+					'not null' => TRUE,
+				],
+			],
+			'primary key' => ['id'],
+		],
+	];
+}

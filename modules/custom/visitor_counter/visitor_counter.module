@@ -1,0 +1,76 @@
+<?php
+
+use Drupal\Core\Session\SessionManagerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+
+
+function visitor_counter_page_attachments(array &$attachments): void
+{
+    visitor_counter_track_visit();
+}
+/**
+ * Implements hook_init().
+ * Tracks guest visits by session on a daily basis.
+ */
+function visitor_counter_track_visit(): void
+{
+    $session = \Drupal::service('session');
+    $request = \Drupal::service('request_stack')->getCurrentRequest();
+    $connection = \Drupal::database();
+
+    if (!$session->isStarted()) {
+        \Drupal::service('session_manager')->start();
+    }
+
+    $current_session_id = $session->getId();
+    $current_date = date('Y-m-d');
+
+    $cookie_name = 'visitor_counter_anonymous_id';
+    $anonymous_id = $request->cookies->get($cookie_name);
+
+    if (empty($current_session_id)) {
+        if (empty($anonymous_id)) {
+            $anonymous_id = bin2hex(random_bytes(16));
+            setcookie($cookie_name, $anonymous_id, time() + (86400 * 30), "/");
+        }
+    } else {
+        $anonymous_id = $current_session_id;
+    }
+
+    $query = $connection->select('visitor_counter', 'vc')
+        ->fields('vc', ['session_id'])
+        ->condition('session_id', $anonymous_id)
+        ->condition('visit_date', $current_date)
+        ->execute()
+        ->fetchField();
+
+    if (!$query) {
+        try {
+            $connection->insert('visitor_counter')
+                ->fields([
+                    'session_id' => $anonymous_id,
+                    'visit_date' => $current_date,
+                ])
+                ->execute();
+        } catch (\Exception $e) {
+            \Drupal::logger('visitor_counter')->error('Insert failed: @message', ['@message' => $e->getMessage()]);
+        }
+    }
+}
+
+/**
+ * Helper function to get the daily visitor count.
+ */
+function visitor_counter_get_daily_count($date = NULL) {
+    $connection = \Drupal::database();
+    $date = $date ?: date('Y-m-d');
+
+    // Count unique sessions for the given date.
+    $count = $connection->select('visitor_counter', 'vc')
+        ->condition('visit_date', $date)
+        ->countQuery()
+        ->execute()
+        ->fetchField();
+
+    return $count;
+}

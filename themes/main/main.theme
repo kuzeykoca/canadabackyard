@@ -116,6 +116,8 @@ function main_preprocess_node__article(&$variables): void
 {
     $fieldImage = $variables['content']['field_image'][0]['#media'];
     $variables['image'] = _getFieldImage($fieldImage);
+    $categoryId = $variables['content']['field_category'][0]['#entity']->tid->value;
+    $variables['recentArticles'] = getRecentArticles($categoryId, 3);
 }
 
 function main_preprocess_paragraph__recent(&$variables): void
@@ -138,14 +140,14 @@ function main_preprocess_taxonomy_term(array &$variables): void
     }
 }
 
-function getRecentArticles($term): array
+function getRecentArticles($termID, $limit = ARTICLES_LENGTH): array
 {
     $query = \Drupal::entityQuery('node')
         ->condition('type', 'article')
         ->condition('status', 1)
-        ->condition('field_category.target_id', $term)
+        ->condition('field_category.target_id', $termID)
         ->sort('created', 'DESC')
-        ->range(0, ARTICLES_LENGTH)
+        ->range(0, $limit)
         ->accessCheck(FALSE);
 
     $article_ids = $query->execute();

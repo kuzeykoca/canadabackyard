@@ -1,0 +1,7 @@
+visitor_counter.daily_count:
+    path: '/daily-visitor-count'
+    defaults:
+        _controller: '\Drupal\visitor_counter\VisitorCounterController::dailyCount'
+        _title: 'Daily Visitor Count'
+    requirements:
+        _permission: 'access content'
