@@ -118,7 +118,7 @@ function main_preprocess_node__article(&$variables): void
     $variables['image'] = _getFieldImage($fieldImage);
     $categoryId = $variables['content']['field_category'][0]['#entity']->tid->value;
     $variables['category'] = $variables['content']['field_category'][0]['#entity']->name->value;
-    $variables['recentArticles'] = getRecentArticles($categoryId, 3);
+    $variables['recentArticles'] = getRecentArticles($categoryId, 3, true);
 }
 
 function main_preprocess_paragraph__recent(&$variables): void
@@ -141,19 +141,25 @@ function main_preprocess_taxonomy_term(array &$variables): void
     }
 }
 
-function getRecentArticles($termID, $limit = ARTICLES_LENGTH): array
+function getRecentArticles($termID, $limit = ARTICLES_LENGTH, $random=false): array
 {
     $query = \Drupal::entityQuery('node')
         ->condition('type', 'article')
         ->condition('status', 1)
         ->condition('field_category.target_id', $termID)
-        ->sort('created', 'DESC')
-        ->range(0, $limit)
         ->accessCheck(FALSE);
+
+    if (!$random) {
+        $query->sort('created', 'DESC');
+    }
 
     $article_ids = $query->execute();
 
     if (!empty($article_ids)) {
+        if ($random) {
+            shuffle($article_ids);
+        }
+        $article_ids = array_slice($article_ids, 0, $limit);
         $articles = Node::loadMultiple($article_ids);
         return mapArticles($articles);
     }
