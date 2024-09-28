@@ -11,9 +11,16 @@
         <title>{{ head_title|safe_join(' | ') }}</title>
         <css-placeholder token="{{ placeholder_token|raw }}">
             <js-placeholder token="{{ placeholder_token|raw }}">
-                <script async
-                        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4357515069047293"
-                        crossorigin="anonymous"></script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4357515069047293" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3XQ40Q8LVP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-3XQ40Q8LVP');
+    </script>
 </head>
 <body{{ attributes.addClass(body_classes) }}>
 {{ page_top }}
