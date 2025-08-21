@@ -196,7 +196,6 @@ function _getFieldImage($media): string
 
 function _getBody(string $body): string
 {
-    return mb_strimwidth($body, 0, 200, '...');
+    $text = strip_tags($body);
+    return mb_strimwidth($text, 0, 200, '...');
 }
-
-
