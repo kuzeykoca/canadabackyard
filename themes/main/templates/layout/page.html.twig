@@ -35,40 +35,45 @@
 
 
 <div class="main-content">
-    <div class="container">
-        <div class="">
+  <div class="container">
+    <div class="content-wrapper">
 
-            {% if not is_front %}
-                <div class="row">
-                    <div class="col-md-12">{{ page.breadcrumb }}</div>
-                </div>
-            {% endif %}
-
-            <div class="row layout">
-                {% if page.sidebar_first %}
-                    <div class={{ sidebarfirst }}>
-                        <div class="sidebar">
-                            {{ page.sidebar_first }}
-                        </div>
-                    </div>
-                {% endif %}
-                {% if page.content %}
-                <div class={{ contentlayout }}>
-                    {{ page.content|without('slider') }}
-                </div>
-            </div>
-            {% endif %}
-            {% if page.sidebar_second %}
-                <div class={{ sidebarsecond }}>
-                    <div class="sidebar">
-                        {{ page.sidebar_second }}
-                    </div>
-                </div>
-            {% endif %}
+      {% if not is_front %}
+        <div class="row">
+          <div class="col-md-12">
+            {{ page.breadcrumb }}
+          </div>
         </div>
+      {% endif %}
+
+      <div class="row layout">
+        {% if page.sidebar_first %}
+          <div class="{{ sidebarfirst }}">
+            <div class="sidebar">
+              {{ page.sidebar_first }}
+            </div>
+          </div>
+        {% endif %}
+
+        {% if page.content %}
+          <div class="{{ contentlayout }}">
+            {{ page.content|without('slider') }}
+          </div>
+        {% endif %}
+
+        {% if page.sidebar_second %}
+          <div class="{{ sidebarsecond }}">
+            <div class="sidebar">
+              {{ page.sidebar_second }}
+            </div>
+          </div>
+        {% endif %}
+      </div>
 
     </div>
+  </div>
 </div>
+
 <!--End: Widget -->
 
 
